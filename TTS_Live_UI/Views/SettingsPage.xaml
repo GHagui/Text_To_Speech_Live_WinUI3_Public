@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="TTS_Live_UI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:TTS_Live_UI.Helpers"
+    xmlns:xaml="using:Microsoft.UI.Xaml"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </Page.Resources>
+    <Grid>
+        <StackPanel
+            x:Name="ContentArea">
+            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                <TextBlock x:Uid="Settings_Theme" />
+
+                <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                    <RadioButton
+                        x:Uid="Settings_Theme_Light"
+                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                        FontSize="15"
+                        GroupName="AppTheme">
+                        <RadioButton.CommandParameter>
+                            <xaml:ElementTheme>Light</xaml:ElementTheme>
+                        </RadioButton.CommandParameter>
+                    </RadioButton>
+                    <RadioButton
+                        x:Uid="Settings_Theme_Dark"
+                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                        FontSize="15"
+                        GroupName="AppTheme">
+                        <RadioButton.CommandParameter>
+                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                        </RadioButton.CommandParameter>
+                    </RadioButton>
+                    <RadioButton
+                        x:Uid="Settings_Theme_Default"
+                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                        FontSize="15"
+                        GroupName="AppTheme">
+                        <RadioButton.CommandParameter>
+                            <xaml:ElementTheme>Default</xaml:ElementTheme>
+                        </RadioButton.CommandParameter>
+                    </RadioButton>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">Sobre este aplicativo</TextBlock>
+
+            <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                <TextBlock
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Style="{ThemeResource BodyTextBlockStyle}">Text To Speech Live UI - 0.0.2.0 feito pelo Gabriel Hagui (CrashXBETAX)</TextBlock>
+                <Button Content="Política de privacidade"
+                        Click="Privacy_policy"
+                        Margin="10,10,10,0">
+                </Button>
+                <Button Content="Visitar o repositório no GitHub"
+                        Click="Acionar_GitHub"
+                        Margin="10">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

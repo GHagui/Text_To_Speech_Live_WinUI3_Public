@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "TTS_Live_UI (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "TTS_Live_UI (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

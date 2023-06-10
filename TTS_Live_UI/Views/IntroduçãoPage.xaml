@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="TTS_Live_UI.Views.IntroduçãoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea" HorizontalAlignment="Center">
+        <FlipView Background="Transparent">
+            <StackPanel>
+                <TextBlock
+                    FontSize="22"
+                TextWrapping="Wrap"
+                Margin="10">Bem-vindo ao aplicativo Text To Speech Live UI!</TextBlock>
+                <Image Source="\Assets\StoreLogo.scale-400.png"
+                       Width="200"
+                       Margin="30"></Image>
+                <TextBlock
+                TextWrapping="Wrap"
+                Margin="20">Text To Speech Live UI é um aplicativo que usa as tecnologias .NET 7 e WinUI 3 para converter texto em voz. O aplicativo permite que os usuários digitem ou colem um texto e escolham uma voz sintetizada para reproduzi-lo em áudio. O aplicativo também oferece opções para ajustar o volume, a velocidade e o tom da voz. Além disso, o aplicativo pode ser usado para falar no microfone usando um adaptador ou driver de áudio, permitindo que os usuários se comuniquem com outras pessoas ou dispositivos por meio da voz. O aplicativo também permite que os usuários usem textos prontos ou atalhos para falar uma frase frequente, economizando tempo e esforço. Text To Speech UI é um projeto que visa facilitar a comunicação e o aprendizado para pessoas com dificuldades de leitura ou audição.</TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock
+                    FontSize="22"
+                TextWrapping="Wrap"
+                Margin="10">Como usar o Text To Speech Live UI com microfone</TextBlock>
+                <Image Source="{ThemeResource MyImage}"
+                       Width="300"
+                       Margin="30"/>
+                <TextBlock
+                TextWrapping="Wrap"
+                Margin="20">Este aplicativo pode ser usado para falar no microfone em reuniões online, é útil para pessoas com deficiências auditivas que usam a Libras. Para usar, é necessário ter um cabo de P2 para conectar a entrada de microfone com a saída de áudio. Se tiver só um conector de P3, é necessário ter um adaptador de P3 para P2. Ou podem usar um driver no Windows como o VB-Cable da VB-Audio para redirecionar virtualmente o som para o microfone. Depois disso, digite e clique em converter ou ative o recurso Live.</TextBlock>
+            </StackPanel>
+        </FlipView>
+        
+    </Grid>
+</Page>

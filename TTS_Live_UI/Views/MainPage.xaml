@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="TTS_Live_UI.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="ContentArea">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox PlaceholderText="Digite para iniciar a TTS-Live"
+                 PlaceholderForeground="Gray"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 IsSpellCheckEnabled="True"
+                 IsTextPredictionEnabled="true"
+                 x:Name="Text_Start"
+                 Margin="0,0,0,10"
+                 Grid.Row="2"
+                 FontSize="16"
+                 ScrollViewer.VerticalScrollMode="Enabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <StackPanel HorizontalAlignment="Right">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <SplitButton x:Name="Start_TTS"
+                     Content="Converter em áudio"
+                     Click="Start_TTS_Click"
+                     IsEnabled="True"
+                     HorizontalAlignment="Right"
+                     Margin="0,0,0,0"
+                     Grid.Column="2"
+                     Visibility="Visible"
+                     Height="40">
+                    <SplitButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Salvar como" Click="SaveToFile"/>
+                        </MenuFlyout>
+                    </SplitButton.Flyout>
+                </SplitButton>
+                <Button Content="Interromper"
+                HorizontalAlignment="Right"
+                Grid.Column="3"
+                Visibility="Visible"
+                Margin="10"
+                Click="Cancel_TTS"
+                Height="40"
+                IsEnabled="False"
+                x:Name="ButtonInterromper">
+                </Button>
+                <ComboBox IsEditable="False" ItemsSource="{x:Bind FontSizes}" Height="40" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10"/>
+                <Button
+                    Height="40"
+                    Click="Alterar_Voz"
+                    Grid.Column="5">
+                    <SymbolIcon Symbol="57621"/>
+                </Button>
+            </Grid>
+        </StackPanel>
+        <ToggleSwitch OffContent="Normal" OnContent="Live" IsOn="False" Grid.Column="0" HorizontalAlignment="Left" Margin="10" x:Name="OrLive"/>
+        <ProgressBar x:Name="ProgressBarStart" IsIndeterminate="False" ShowPaused="False" ShowError="False" Grid.Row="1"></ProgressBar>
+    </Grid>
+</Page>
