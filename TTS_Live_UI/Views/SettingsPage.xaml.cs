@@ -24,6 +24,6 @@ public sealed partial class SettingsPage : Page
     }
     private async void Acionar_GitHub(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        await Launcher.LaunchUriAsync(new Uri("https://github.com/CrashXBETAX/TTS_Live_UI"));
+        await Launcher.LaunchUriAsync(new Uri("https://github.com/CrashXBETAX/Text_To_Speech_Live_WinUI3_Public"));
     }
 }
