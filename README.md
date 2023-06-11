@@ -47,7 +47,7 @@ Esse recurso Live tem espaço para melhorias para ser mais solído e estável.
 ## Uso
 Para usar o aplicativo Text To Speech Live UI, digite no campo e clique em converter em áudio para iniciar. Ou ative o recurso Live antes de digitar.
 
-#TO DO
+## TO DO
 - ✅ Melhorias na tela da configuração
 - ✅ Permitir a ajuste do tamanho de fonte
 - ✅ O recurso Live
