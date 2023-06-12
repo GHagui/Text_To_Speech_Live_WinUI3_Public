@@ -1,7 +1,7 @@
 <p align="center">
   <img src="/TTS_Live_UI/Assets/StoreLogo.scale-400.png"/>
 </p>
-<h3 align="center">Text To Speech Live UI by CrashXBETAX 0.0.1.0</h3>
+<h3 align="center">Text To Speech Live UI by CrashXBETAX 0.0.2.0</h3>
 <br>
 <p align="center">
   <a href="https://github.com/CrashXBETAX/Text_To_Speech_Live_WinUI3_Public/issues"><strong>Report Bug »</strong></a>
