@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="TTS_Live_UI.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -55,6 +55,11 @@
                 <NavigationViewItem Content="Editor de atalhos" helpers:NavigationHelper.NavigateTo="TTS_Live_UI.ViewModels.EditorViewModel">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="57604"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Histórico" helpers:NavigationHelper.NavigateTo="TTS_Live_UI.ViewModels.HistoryViewModel">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE81C;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>

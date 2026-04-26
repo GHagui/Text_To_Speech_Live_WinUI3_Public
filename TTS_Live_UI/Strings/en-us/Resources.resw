@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -58,18 +58,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+
+  <!-- App Identity -->
   <data name="AppDisplayName" xml:space="preserve">
-    <value>TTS_Live_UI</value>
+    <value>TTS Live UI</value>
   </data>
-	<data name="AppDescription" xml:space="preserve">
-		<value>TTS_Live_UI</value>
-  	</data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Text To Speech Live UI - Convert text to speech in real-time</value>
+  </data>
+
+  <!-- Shell Navigation -->
+  <data name="Shell_Introdução.Content" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Text To Speech</value>
   </data>
   <data name="Shell_Editor.Content" xml:space="preserve">
-    <value>Editor</value>
+    <value>Shortcuts Editor</value>
   </data>
+  <data name="Shell_History.Content" xml:space="preserve">
+    <value>History</value>
+  </data>
+
+  <!-- Settings Page -->
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
   </data>
@@ -89,7 +101,7 @@
     <value>About this application</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>TODO: Replace with your app description.</value>
+    <value>Text To Speech Live UI - Built with .NET 10 and WinUI 3</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy Statement</value>
@@ -97,7 +109,183 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
-  <data name="Shell_Introdução.Content" xml:space="preserve">
-    <value>Introdução</value>
+
+  <!-- Main Page -->
+  <data name="Main_LiveMode_Off" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Main_LiveMode_On" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="Main_ClipboardWatch" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="Main_ClipboardWatch_Tooltip" xml:space="preserve">
+    <value>Clipboard Watch mode — automatically speaks copied text</value>
+  </data>
+  <data name="Main_FontSize_Tooltip" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="Main_ConvertButton" xml:space="preserve">
+    <value>Convert to audio</value>
+  </data>
+  <data name="Main_SaveWav" xml:space="preserve">
+    <value>Save as WAV</value>
+  </data>
+  <data name="Main_SaveMp3" xml:space="preserve">
+    <value>Save as MP3</value>
+  </data>
+  <data name="Main_Interrupt" xml:space="preserve">
+    <value>Interrupt</value>
+  </data>
+  <data name="Main_Settings_Tooltip" xml:space="preserve">
+    <value>Voice settings</value>
+  </data>
+  <data name="Main_Settings_Title" xml:space="preserve">
+    <value>Voice Settings</value>
+  </data>
+  <data name="Main_Settings_Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="Main_Settings_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Main_Settings_Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="Main_Settings_LiveDelay" xml:space="preserve">
+    <value>Live mode delay (ms)</value>
+  </data>
+  <data name="Main_Settings_AudioPriority" xml:space="preserve">
+    <value>Audio priority</value>
+  </data>
+  <data name="Main_Settings_AudioPriority_Off" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Main_Settings_AudioPriority_On" xml:space="preserve">
+    <value>Lower volume of other apps</value>
+  </data>
+  <data name="Main_Settings_WindowsVoice" xml:space="preserve">
+    <value>Open Windows voice settings</value>
+  </data>
+  <data name="Main_Placeholder" xml:space="preserve">
+    <value>Type to start TTS-Live</value>
+  </data>
+  <data name="Main_Error_Title" xml:space="preserve">
+    <value>Speech synthesis error</value>
+  </data>
+  <data name="Main_Error_Message" xml:space="preserve">
+    <value>An error occurred during conversion. Check if an audio device is connected.</value>
+  </data>
+  <data name="Main_Status_Converting" xml:space="preserve">
+    <value>Convert to audio</value>
+  </data>
+  <data name="Main_Status_Playing" xml:space="preserve">
+    <value>Playing</value>
+  </data>
+  <data name="Main_Status_Live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="Main_Status_Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Main_Status_SaveError" xml:space="preserve">
+    <value>Save error</value>
+  </data>
+
+  <!-- Editor Page -->
+  <data name="Editor_Title" xml:space="preserve">
+    <value>Text Shortcuts</value>
+  </data>
+  <data name="Editor_Description" xml:space="preserve">
+    <value>Create ready-made phrases to speak quickly with one click. Useful for frequent phrases in meetings and conversations.</value>
+  </data>
+  <data name="Editor_Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="Editor_LabelPlaceholder" xml:space="preserve">
+    <value>E.g.: Greeting</value>
+  </data>
+  <data name="Editor_TextToSpeak" xml:space="preserve">
+    <value>Text to speak</value>
+  </data>
+  <data name="Editor_TextPlaceholder" xml:space="preserve">
+    <value>E.g.: Hello, how are you?</value>
+  </data>
+  <data name="Editor_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Editor_SpeakTooltip" xml:space="preserve">
+    <value>Speak this shortcut</value>
+  </data>
+  <data name="Editor_RemoveTooltip" xml:space="preserve">
+    <value>Remove shortcut</value>
+  </data>
+
+  <!-- History Page -->
+  <data name="History_Title" xml:space="preserve">
+    <value>Conversion History</value>
+  </data>
+  <data name="History_Description" xml:space="preserve">
+    <value>All text-to-speech conversions are logged here.</value>
+  </data>
+  <data name="History_ClearAll" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="History_Empty" xml:space="preserve">
+    <value>No conversions recorded yet.</value>
+  </data>
+  <data name="History_ReplayTooltip" xml:space="preserve">
+    <value>Play again</value>
+  </data>
+  <data name="History_RemoveTooltip" xml:space="preserve">
+    <value>Remove from history</value>
+  </data>
+
+  <!-- Introduction Page -->
+  <data name="Intro_Welcome" xml:space="preserve">
+    <value>Welcome to Text To Speech Live UI!</value>
+  </data>
+  <data name="Intro_Description" xml:space="preserve">
+    <value>Text To Speech Live UI is an app built with .NET 10 and WinUI 3 to convert text to speech. Type or paste a text, adjust the volume, speed, and choose from the voices installed on the system. Ideal for communication, learning, and accessibility.</value>
+  </data>
+  <data name="Intro_Microphone_Title" xml:space="preserve">
+    <value>How to use with a microphone</value>
+  </data>
+  <data name="Intro_Microphone_Description" xml:space="preserve">
+    <value>Use the app to speak into the microphone during online meetings — useful for people with hearing impairments. Connect a P2 cable between the microphone input and audio output, or use a virtual driver like VB-Cable to redirect the sound. Then type and click convert or enable the Live feature.</value>
+  </data>
+  <data name="Intro_Features_Title" xml:space="preserve">
+    <value>Available features</value>
+  </data>
+  <data name="Intro_Feature_TTS" xml:space="preserve">
+    <value>Text-to-speech conversion with volume and speed control</value>
+  </data>
+  <data name="Intro_Feature_Live" xml:space="preserve">
+    <value>Live mode: automatically speaks when sentences end with . ? or !</value>
+  </data>
+  <data name="Intro_Feature_Shortcuts" xml:space="preserve">
+    <value>Text shortcuts: ready-made phrases to speak with one click</value>
+  </data>
+  <data name="Intro_Feature_VoiceSettings" xml:space="preserve">
+    <value>Voice selection, speed and volume adjustment integrated</value>
+  </data>
+  <data name="Intro_Feature_SaveWav" xml:space="preserve">
+    <value>Save audio as WAV or MP3 file</value>
+  </data>
+  <data name="Intro_Feature_Themes" xml:space="preserve">
+    <value>Light, dark, and system default themes</value>
+  </data>
+  <data name="Intro_Feature_Clipboard" xml:space="preserve">
+    <value>Clipboard Watch: automatically speaks copied text</value>
+  </data>
+  <data name="Intro_Feature_Hotkeys" xml:space="preserve">
+    <value>Global system hotkeys for quick actions</value>
+  </data>
+  <data name="Intro_Feature_Highlight" xml:space="preserve">
+    <value>Visual word highlighting during speech</value>
+  </data>
+  <data name="Intro_Feature_History" xml:space="preserve">
+    <value>Complete conversion history with replay</value>
   </data>
 </root>

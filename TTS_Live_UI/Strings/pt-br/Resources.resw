@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Identidade do App -->
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>TTS Live UI</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Text To Speech Live UI - Converta texto em voz em tempo real</value>
+  </data>
+
+  <!-- Navegação do Shell -->
+  <data name="Shell_Introdução.Content" xml:space="preserve">
+    <value>Introdução</value>
+  </data>
+  <data name="Shell_Main.Content" xml:space="preserve">
+    <value>Text To Speech</value>
+  </data>
+  <data name="Shell_Editor.Content" xml:space="preserve">
+    <value>Editor de atalhos</value>
+  </data>
+  <data name="Shell_History.Content" xml:space="preserve">
+    <value>Histórico</value>
+  </data>
+
+  <!-- Página de Configurações -->
+  <data name="Settings_Personalization.Text" xml:space="preserve">
+    <value>Personalização</value>
+  </data>
+  <data name="Settings_Theme.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+    <value>Padrão do sistema</value>
+  </data>
+  <data name="Settings_About.Text" xml:space="preserve">
+    <value>Sobre este aplicativo</value>
+  </data>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>Text To Speech Live UI - Construído com .NET 10 e WinUI 3</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Política de Privacidade</value>
+  </data>
+  <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://YourPrivacyUrlGoesHere/</value>
+  </data>
+
+  <!-- Página Principal -->
+  <data name="Main_LiveMode_Off" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Main_LiveMode_On" xml:space="preserve">
+    <value>Ao vivo</value>
+  </data>
+  <data name="Main_ClipboardWatch" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="Main_ClipboardWatch_Tooltip" xml:space="preserve">
+    <value>Modo Clipboard Watch — fala automaticamente o texto copiado</value>
+  </data>
+  <data name="Main_FontSize_Tooltip" xml:space="preserve">
+    <value>Tamanho da fonte</value>
+  </data>
+  <data name="Main_ConvertButton" xml:space="preserve">
+    <value>Converter em áudio</value>
+  </data>
+  <data name="Main_SaveWav" xml:space="preserve">
+    <value>Salvar como WAV</value>
+  </data>
+  <data name="Main_SaveMp3" xml:space="preserve">
+    <value>Salvar como MP3</value>
+  </data>
+  <data name="Main_Interrupt" xml:space="preserve">
+    <value>Interromper</value>
+  </data>
+  <data name="Main_Settings_Tooltip" xml:space="preserve">
+    <value>Configurações de voz</value>
+  </data>
+  <data name="Main_Settings_Title" xml:space="preserve">
+    <value>Configurações de Voz</value>
+  </data>
+  <data name="Main_Settings_Voice" xml:space="preserve">
+    <value>Voz</value>
+  </data>
+  <data name="Main_Settings_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Main_Settings_Speed" xml:space="preserve">
+    <value>Velocidade</value>
+  </data>
+  <data name="Main_Settings_LiveDelay" xml:space="preserve">
+    <value>Atraso do modo Live (ms)</value>
+  </data>
+  <data name="Main_Settings_AudioPriority" xml:space="preserve">
+    <value>Prioridade de áudio</value>
+  </data>
+  <data name="Main_Settings_AudioPriority_Off" xml:space="preserve">
+    <value>Desativado</value>
+  </data>
+  <data name="Main_Settings_AudioPriority_On" xml:space="preserve">
+    <value>Reduzir som de outros apps</value>
+  </data>
+  <data name="Main_Settings_WindowsVoice" xml:space="preserve">
+    <value>Abrir configurações de voz do Windows</value>
+  </data>
+  <data name="Main_Placeholder" xml:space="preserve">
+    <value>Digite para iniciar a TTS-Live</value>
+  </data>
+  <data name="Main_Error_Title" xml:space="preserve">
+    <value>Erro na síntese de voz</value>
+  </data>
+  <data name="Main_Error_Message" xml:space="preserve">
+    <value>Ocorreu um erro durante a conversão. Verifique se há um dispositivo de áudio conectado.</value>
+  </data>
+  <data name="Main_Status_Converting" xml:space="preserve">
+    <value>Converter em áudio</value>
+  </data>
+  <data name="Main_Status_Playing" xml:space="preserve">
+    <value>Reproduzindo</value>
+  </data>
+  <data name="Main_Status_Live" xml:space="preserve">
+    <value>Ao vivo</value>
+  </data>
+  <data name="Main_Status_Saving" xml:space="preserve">
+    <value>Salvando...</value>
+  </data>
+  <data name="Main_Status_SaveError" xml:space="preserve">
+    <value>Erro ao salvar</value>
+  </data>
+
+  <!-- Página do Editor -->
+  <data name="Editor_Title" xml:space="preserve">
+    <value>Atalhos de Texto</value>
+  </data>
+  <data name="Editor_Description" xml:space="preserve">
+    <value>Crie frases prontas para falar rapidamente com um clique. Útil para frases frequentes em reuniões e conversas.</value>
+  </data>
+  <data name="Editor_Label" xml:space="preserve">
+    <value>Rótulo</value>
+  </data>
+  <data name="Editor_LabelPlaceholder" xml:space="preserve">
+    <value>Ex: Saudação</value>
+  </data>
+  <data name="Editor_TextToSpeak" xml:space="preserve">
+    <value>Texto para falar</value>
+  </data>
+  <data name="Editor_TextPlaceholder" xml:space="preserve">
+    <value>Ex: Olá, tudo bem?</value>
+  </data>
+  <data name="Editor_Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="Editor_SpeakTooltip" xml:space="preserve">
+    <value>Falar este atalho</value>
+  </data>
+  <data name="Editor_RemoveTooltip" xml:space="preserve">
+    <value>Remover atalho</value>
+  </data>
+
+  <!-- Página do Histórico -->
+  <data name="History_Title" xml:space="preserve">
+    <value>Histórico de Conversões</value>
+  </data>
+  <data name="History_Description" xml:space="preserve">
+    <value>Todas as conversões de texto para voz são registradas aqui.</value>
+  </data>
+  <data name="History_ClearAll" xml:space="preserve">
+    <value>Limpar tudo</value>
+  </data>
+  <data name="History_Empty" xml:space="preserve">
+    <value>Nenhuma conversão registrada ainda.</value>
+  </data>
+  <data name="History_ReplayTooltip" xml:space="preserve">
+    <value>Reproduzir novamente</value>
+  </data>
+  <data name="History_RemoveTooltip" xml:space="preserve">
+    <value>Remover do histórico</value>
+  </data>
+
+  <!-- Página de Introdução -->
+  <data name="Intro_Welcome" xml:space="preserve">
+    <value>Bem-vindo ao Text To Speech Live UI!</value>
+  </data>
+  <data name="Intro_Description" xml:space="preserve">
+    <value>Text To Speech Live UI é um aplicativo construído com .NET 10 e WinUI 3 para converter texto em voz. Digite ou cole um texto, ajuste o volume, a velocidade e escolha entre as vozes instaladas no sistema. Ideal para comunicação, aprendizado e acessibilidade.</value>
+  </data>
+  <data name="Intro_Microphone_Title" xml:space="preserve">
+    <value>Como usar com microfone</value>
+  </data>
+  <data name="Intro_Microphone_Description" xml:space="preserve">
+    <value>Use o aplicativo para falar no microfone em reuniões online — útil para pessoas com deficiências auditivas. Conecte um cabo P2 entre a entrada de microfone e a saída de áudio, ou use um driver virtual como o VB-Cable para redirecionar o som. Depois, digite e clique em converter ou ative o recurso Live.</value>
+  </data>
+  <data name="Intro_Features_Title" xml:space="preserve">
+    <value>Recursos disponíveis</value>
+  </data>
+  <data name="Intro_Feature_TTS" xml:space="preserve">
+    <value>Conversão de texto em voz com controle de volume e velocidade</value>
+  </data>
+  <data name="Intro_Feature_Live" xml:space="preserve">
+    <value>Modo Live: fala automaticamente ao terminar frases com . ? ou !</value>
+  </data>
+  <data name="Intro_Feature_Shortcuts" xml:space="preserve">
+    <value>Atalhos de texto: frases prontas para falar com um clique</value>
+  </data>
+  <data name="Intro_Feature_VoiceSettings" xml:space="preserve">
+    <value>Seleção de voz, ajuste de velocidade e volume integrados</value>
+  </data>
+  <data name="Intro_Feature_SaveWav" xml:space="preserve">
+    <value>Salvar áudio como arquivo WAV ou MP3</value>
+  </data>
+  <data name="Intro_Feature_Themes" xml:space="preserve">
+    <value>Temas claro, escuro e padrão do sistema</value>
+  </data>
+  <data name="Intro_Feature_Clipboard" xml:space="preserve">
+    <value>Clipboard Watch: fala automaticamente o texto copiado</value>
+  </data>
+  <data name="Intro_Feature_Hotkeys" xml:space="preserve">
+    <value>Hotkeys globais do sistema para ações rápidas</value>
+  </data>
+  <data name="Intro_Feature_Highlight" xml:space="preserve">
+    <value>Destaque visual da palavra sendo falada</value>
+  </data>
+  <data name="Intro_Feature_History" xml:space="preserve">
+    <value>Histórico completo de conversões com replay</value>
+  </data>
+</root>

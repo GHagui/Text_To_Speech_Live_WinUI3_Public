@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.UI.Xaml.Controls;
 
@@ -17,6 +17,7 @@ public class PageService : IPageService
         Configure<MainViewModel, MainPage>();
         Configure<EditorViewModel, EditorPage>();
         Configure<EditorDetailViewModel, EditorDetailPage>();
+        Configure<HistoryViewModel, HistoryPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<IntroduçãoViewModel, IntroduçãoPage>();
     }

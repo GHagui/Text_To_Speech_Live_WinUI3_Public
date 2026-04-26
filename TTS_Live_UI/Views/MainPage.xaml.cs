@@ -1,131 +1,146 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using TTS_Live_UI.ViewModels;
-namespace TTS_Live_UI.Views;
-using System.Speech.Synthesis;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
+using Microsoft.UI.Text;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using TTS_Live_UI.ViewModels;
+using System;
+using System.ComponentModel;
 using Windows.System;
 
+namespace TTS_Live_UI.Views;
+
+/// <summary>
+/// Thin code-behind for MainPage. All business logic lives in MainViewModel.
+/// Only UI-specific operations (file pickers, launcher, word highlighting) remain here.
+/// </summary>
 public sealed partial class MainPage : Page
 {
-    public MainViewModel ViewModel
-    {
-        get;
-    }
-    private readonly SpeechSynthesizer _synth;
-    private string anterior = "";
-    public List<int> FontSizes { get; set; } = new List<int>() { 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 64 };
+    public MainViewModel ViewModel { get; }
+
     public MainPage()
     {
-        InitializeComponent();
         ViewModel = App.GetService<MainViewModel>();
-        _synth = new SpeechSynthesizer();
-        _synth.SetOutputToDefaultAudioDevice();
-        EventHandler<SpeakCompletedEventArgs> synth_SpeakCompleted = Synth_SpeakCompleted;
-        _synth.SpeakCompleted += synth_SpeakCompleted;
-        Text_Start.TextChanged += Text_Start_TextChanged;
-        OrLive.Toggled += (s, e) =>
+        InitializeComponent();
+
+        Unloaded += OnUnloaded;
+
+        // Subscribe to word highlight changes for RichEditBox highlighting
+        ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+
+        // Sync initial text
+        Text_Start.Document.SetText(TextSetOptions.None, ViewModel.InputText);
+    }
+
+    private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ViewModel.HighlightStart) || e.PropertyName == nameof(ViewModel.HighlightLength))
         {
-            if (OrLive.IsOn)
+            ApplyWordHighlight();
+        }
+    }
+
+    /// <summary>
+    /// Highlights the currently spoken word in the RichEditBox.
+    /// </summary>
+    private void ApplyWordHighlight()
+    {
+        try
+        {
+            var doc = Text_Start.Document;
+
+            // Clear all formatting first
+            var fullRange = doc.GetRange(0, TextConstants.MaxUnitCount);
+            fullRange.CharacterFormat.BackgroundColor = Colors.Transparent;
+            fullRange.CharacterFormat.ForegroundColor = 
+                ActualTheme == Microsoft.UI.Xaml.ElementTheme.Dark ? Colors.White : Colors.Black;
+
+            // Apply highlight to current word
+            if (ViewModel.HighlightLength > 0)
             {
-                Start_TTS.Content = "Ao vivo";
-                Start_TTS.IsEnabled = false;
+                var highlightRange = doc.GetRange(
+                    ViewModel.HighlightStart,
+                    ViewModel.HighlightStart + ViewModel.HighlightLength);
+                highlightRange.CharacterFormat.BackgroundColor = Colors.Yellow;
+                highlightRange.CharacterFormat.ForegroundColor = Colors.Black;
             }
-            else
-            {
-                Start_TTS.Content = "Converter em áudio";
-                Start_TTS.IsEnabled = true;
-            }
-        };
+        }
+        catch
+        {
+            // Ignore highlight errors — non-critical UI feature
+        }
     }
 
     private void Start_TTS_Click(SplitButton sender, SplitButtonClickEventArgs args)
     {
-        ProgressBarStart.ShowError = false;
-        ButtonInterromper.IsEnabled = true;
-        Start_TTS.Content = "Reproduzindo";
-        ProgressBarStart.IsIndeterminate = true;
-        Start_TTS.IsEnabled = false;
-        var text = new Prompt(Text_Start.Text);
-        _synth.SpeakAsync(text);
+        SyncTextToViewModel();
+        ViewModel.SpeakCommand.Execute(null);
     }
 
     private void Cancel_TTS(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        _synth.SpeakAsyncCancelAll();
+        ViewModel.CancelSpeechCommand.Execute(null);
     }
 
-    private void SaveToFile(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private async void SaveToFileWav(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-
+        await SaveToFileAsync(".wav", "Arquivo de Áudio WAV");
     }
-    private async void Text_Start_TextChanged(object sender, TextChangedEventArgs e)
+
+    private async void SaveToFileMp3(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        if (OrLive.IsOn)
+        await SaveToFileAsync(".mp3", "Arquivo de Áudio MP3");
+    }
+
+    private async Task SaveToFileAsync(string extension, string description)
+    {
+        SyncTextToViewModel();
+        if (string.IsNullOrWhiteSpace(ViewModel.InputText)) return;
+
+        try
         {
-            await Task.Delay(3000);
-            var atual = Text_Start.Text;
-            var difference = GetDifference(atual, anterior);
-            if (difference.Contains('.') || difference.Contains('?') || difference.Contains('!'))
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
+            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
+
+            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            savePicker.FileTypeChoices.Add(description, new System.Collections.Generic.List<string>() { extension });
+            savePicker.SuggestedFileName = "Áudio_TTS";
+
+            var file = await savePicker.PickSaveFileAsync();
+            if (file != null)
             {
-                ProgressBarStart.ShowError = false;
-                ButtonInterromper.IsEnabled = true;
-                ProgressBarStart.IsIndeterminate = true;
-                _synth.SpeakAsync(new Prompt(difference));
-                anterior = atual;
+                await ViewModel.SaveToFileCommand.ExecuteAsync(file.Path);
             }
         }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"SaveToFile error: {ex.Message}");
+        }
+    }
 
-    }
-    private void Synth_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
+    private async void Text_Start_TextChanged(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        if (e.Error != null)
-        {
-            ProgressBarStart.ShowError = true;
-        }
-        else
-        {
-            if(OrLive.IsOn == false)
-            {
-                Start_TTS.Content = "Converter em áudio";
-                Start_TTS.IsEnabled = true;
+        SyncTextToViewModel();
+        await ViewModel.OnTextChangedAsync();
+    }
 
-            }
-            else
-            {
-                
-                Start_TTS.IsEnabled = false;
-            }
-            ProgressBarStart.IsIndeterminate = false;
-            ButtonInterromper.IsEnabled = false;
-        }
-    }
-    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    /// <summary>
+    /// Syncs the RichEditBox text content to the ViewModel's InputText property.
+    /// </summary>
+    private void SyncTextToViewModel()
     {
-        double fontSize;
-        if (double.TryParse(e.AddedItems[0].ToString(), out fontSize))
-        {
-            Text_Start.FontSize = fontSize;
-        }
-    }
-    public static string GetDifference(string text1, string text2)
-    {
-        var diff = new StringBuilder();
-        var d = new List<string>(text1.Split(' '));
-        var e = new List<string>(text2.Split(' '));
-        var result = d.Except(e);
-        foreach (var s in result)
-        {
-            diff.Append(s + " ");
-        }
-        return diff.ToString().Trim();
+        Text_Start.Document.GetText(TextGetOptions.UseLf, out var text);
+        ViewModel.InputText = text?.TrimEnd('\r', '\n') ?? string.Empty;
     }
 
     private async void Alterar_Voz(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         await Launcher.LaunchUriAsync(new Uri("ms-settings:speech"));
+    }
+
+    private void OnUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        ViewModel.Dispose();
     }
 }

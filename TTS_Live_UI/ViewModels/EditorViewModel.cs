@@ -1,58 +1,90 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-using TTS_Live_UI.Contracts.Services;
-using TTS_Live_UI.Contracts.ViewModels;
+using Microsoft.Extensions.Logging;
 using TTS_Live_UI.Core.Contracts.Services;
-using TTS_Live_UI.Core.Models;
 
 namespace TTS_Live_UI.ViewModels;
 
-public class EditorViewModel : ObservableRecipient, INavigationAware
+/// <summary>
+/// Represents a user-defined text shortcut for quick TTS playback.
+/// </summary>
+public partial class TextShortcut : ObservableObject
 {
-    private readonly INavigationService _navigationService;
-    private readonly ISampleDataService _sampleDataService;
+    [ObservableProperty]
+    private string _label = string.Empty;
 
-    public ICommand ItemClickCommand
+    [ObservableProperty]
+    private string _text = string.Empty;
+}
+
+/// <summary>
+/// ViewModel for the shortcuts editor page.
+/// </summary>
+public partial class EditorViewModel : ObservableRecipient
+{
+    private readonly ISpeechService _speechService;
+    private readonly ILogger<EditorViewModel> _logger;
+
+    public ObservableCollection<TextShortcut> Shortcuts { get; } = new();
+
+    [ObservableProperty]
+    private string _newLabel = string.Empty;
+
+    [ObservableProperty]
+    private string _newText = string.Empty;
+
+    [ObservableProperty]
+    private TextShortcut? _selectedShortcut;
+
+    public EditorViewModel(ISpeechService speechService, ILogger<EditorViewModel> logger)
     {
-        get;
+        _speechService = speechService;
+        _logger = logger;
+
+        // Add some default examples
+        Shortcuts.Add(new TextShortcut { Label = "Saudação", Text = "Olá, tudo bem? Como posso ajudar?" });
+        Shortcuts.Add(new TextShortcut { Label = "Agradecimento", Text = "Muito obrigado pela sua atenção!" });
+        Shortcuts.Add(new TextShortcut { Label = "Despedida", Text = "Foi um prazer conversar com você. Até mais!" });
     }
 
-    public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
-
-    public EditorViewModel(INavigationService navigationService, ISampleDataService sampleDataService)
+    [RelayCommand]
+    private void AddShortcut()
     {
-        _navigationService = navigationService;
-        _sampleDataService = sampleDataService;
-
-        ItemClickCommand = new RelayCommand<SampleOrder>(OnItemClick);
-    }
-
-    public async void OnNavigatedTo(object parameter)
-    {
-        Source.Clear();
-
-        // TODO: Replace with real data.
-        var data = await _sampleDataService.GetContentGridDataAsync();
-        foreach (var item in data)
+        if (string.IsNullOrWhiteSpace(NewLabel) || string.IsNullOrWhiteSpace(NewText))
         {
-            Source.Add(item);
+            return;
+        }
+
+        Shortcuts.Add(new TextShortcut { Label = NewLabel, Text = NewText });
+        _logger.LogInformation("Added shortcut: {Label}", NewLabel);
+        NewLabel = string.Empty;
+        NewText = string.Empty;
+    }
+
+    [RelayCommand]
+    private void RemoveShortcut(TextShortcut? shortcut)
+    {
+        if (shortcut != null)
+        {
+            Shortcuts.Remove(shortcut);
+            _logger.LogInformation("Removed shortcut: {Label}", shortcut.Label);
         }
     }
 
-    public void OnNavigatedFrom()
+    [RelayCommand]
+    private async Task SpeakShortcut(TextShortcut? shortcut)
     {
-    }
+        if (shortcut == null || string.IsNullOrWhiteSpace(shortcut.Text)) return;
 
-    private void OnItemClick(SampleOrder? clickedItem)
-    {
-        if (clickedItem != null)
+        try
         {
-            _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);
-            _navigationService.NavigateTo(typeof(EditorDetailViewModel).FullName!, clickedItem.OrderID);
+            _logger.LogInformation("Speaking shortcut: {Label}", shortcut.Label);
+            await _speechService.SpeakAsync(shortcut.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to speak shortcut: {Label}", shortcut.Label);
         }
     }
 }

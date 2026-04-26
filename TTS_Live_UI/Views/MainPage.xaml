@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="TTS_Live_UI.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,67 +10,182 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBox PlaceholderText="Digite para iniciar a TTS-Live"
-                 PlaceholderForeground="Gray"
-                 TextWrapping="Wrap"
-                 AcceptsReturn="True"
-                 IsSpellCheckEnabled="True"
-                 IsTextPredictionEnabled="true"
-                 x:Name="Text_Start"
-                 Margin="0,0,0,10"
-                 Grid.Row="2"
-                 FontSize="16"
-                 ScrollViewer.VerticalScrollMode="Enabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <StackPanel HorizontalAlignment="Right">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <SplitButton x:Name="Start_TTS"
-                     Content="Converter em áudio"
-                     Click="Start_TTS_Click"
-                     IsEnabled="True"
-                     HorizontalAlignment="Right"
-                     Margin="0,0,0,0"
-                     Grid.Column="2"
-                     Visibility="Visible"
-                     Height="40">
-                    <SplitButton.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Salvar como" Click="SaveToFile"/>
-                        </MenuFlyout>
-                    </SplitButton.Flyout>
-                </SplitButton>
-                <Button Content="Interromper"
-                HorizontalAlignment="Right"
+
+        <!-- Row 0: Top Controls Bar -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Live Mode Toggle -->
+            <ToggleSwitch
+                Grid.Column="0"
+                OffContent="Normal"
+                OnContent="Live"
+                IsOn="{x:Bind ViewModel.IsLiveMode, Mode=TwoWay}"
+                x:Name="OrLive"
+                VerticalAlignment="Center"/>
+
+            <!-- Clipboard Watch Toggle -->
+            <ToggleButton
+                Grid.Column="1"
+                IsChecked="{x:Bind ViewModel.IsClipboardWatchActive, Mode=TwoWay}"
+                VerticalAlignment="Center"
+                Margin="4,0"
+                ToolTipService.ToolTip="Modo Clipboard Watch — fala automaticamente o texto copiado"
+                Height="40">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE8C8;" FontSize="16"/>
+                    <TextBlock Text="Clipboard" VerticalAlignment="Center"/>
+                </StackPanel>
+            </ToggleButton>
+
+            <!-- Font Size Selector -->
+            <ComboBox
                 Grid.Column="3"
-                Visibility="Visible"
-                Margin="10"
+                IsEditable="False"
+                ItemsSource="{x:Bind ViewModel.FontSizes}"
+                Height="40"
+                SelectedIndex="{x:Bind ViewModel.SelectedFontSizeIndex, Mode=TwoWay}"
+                HorizontalAlignment="Right"
+                Margin="4,0"
+                ToolTipService.ToolTip="Tamanho da fonte"/>
+
+            <!-- Speak / Convert Button -->
+            <SplitButton
+                x:Name="Start_TTS"
+                Grid.Column="4"
+                Content="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                Click="Start_TTS_Click"
+                IsEnabled="{x:Bind ViewModel.CanSpeak, Mode=OneWay}"
+                HorizontalAlignment="Right"
+                Margin="4,0"
+                Height="40">
+                <SplitButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="Enter"/>
+                </SplitButton.KeyboardAccelerators>
+                <SplitButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Salvar como WAV" Click="SaveToFileWav">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="S"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Salvar como MP3" Click="SaveToFileMp3">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control,Shift" Key="S"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </SplitButton.Flyout>
+            </SplitButton>
+
+            <!-- Cancel Button -->
+            <Button
+                Grid.Column="5"
+                Content="Interromper"
+                HorizontalAlignment="Right"
+                Margin="4,0"
                 Click="Cancel_TTS"
                 Height="40"
-                IsEnabled="False"
+                IsEnabled="{x:Bind ViewModel.CanCancel, Mode=OneWay}"
                 x:Name="ButtonInterromper">
-                </Button>
-                <ComboBox IsEditable="False" ItemsSource="{x:Bind FontSizes}" Height="40" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10"/>
-                <Button
-                    Height="40"
-                    Click="Alterar_Voz"
-                    Grid.Column="5">
-                    <SymbolIcon Symbol="57621"/>
-                </Button>
-            </Grid>
-        </StackPanel>
-        <ToggleSwitch OffContent="Normal" OnContent="Live" IsOn="False" Grid.Column="0" HorizontalAlignment="Left" Margin="10" x:Name="OrLive"/>
-        <ProgressBar x:Name="ProgressBarStart" IsIndeterminate="False" ShowPaused="False" ShowError="False" Grid.Row="1"></ProgressBar>
+                <Button.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Escape"/>
+                </Button.KeyboardAccelerators>
+            </Button>
+
+            <!-- Voice Settings Button -->
+            <Button
+                Grid.Column="6"
+                Height="40"
+                Margin="4,0"
+                ToolTipService.ToolTip="Configurações de voz">
+                <SymbolIcon Symbol="57621"/>
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel Width="320" Spacing="12">
+                            <TextBlock Text="Configurações de Voz"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Margin="0,0,0,4"/>
+
+                            <!-- Voice Selector -->
+                            <ComboBox
+                                Header="Voz"
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{x:Bind ViewModel.InstalledVoices}"
+                                SelectedItem="{x:Bind ViewModel.SelectedVoice, Mode=TwoWay}"
+                                DisplayMemberPath="Name"
+                                x:Name="VoiceSelector"/>
+
+                            <!-- Volume Slider -->
+                            <Slider Header="Volume" Minimum="0" Maximum="100"
+                                    Value="{x:Bind ViewModel.Volume, Mode=TwoWay}"
+                                    StepFrequency="5" TickFrequency="10" TickPlacement="Outside"/>
+
+                            <!-- Rate Slider -->
+                            <Slider Header="Velocidade" Minimum="-10" Maximum="10"
+                                    Value="{x:Bind ViewModel.Rate, Mode=TwoWay}"
+                                    StepFrequency="1" TickFrequency="2" TickPlacement="Outside"/>
+
+                            <!-- Debounce for Live Mode -->
+                            <Slider Header="Atraso do modo Live (ms)" Minimum="300" Maximum="2000"
+                                    Value="{x:Bind ViewModel.DebounceMs, Mode=TwoWay}"
+                                    StepFrequency="100" TickFrequency="200" TickPlacement="Outside"/>
+
+                            <!-- Audio Ducking -->
+                            <ToggleSwitch
+                                Header="Prioridade de áudio"
+                                OffContent="Desativado"
+                                OnContent="Reduzir som de outros apps"
+                                IsOn="{x:Bind ViewModel.DuckOtherApps, Mode=TwoWay}"/>
+
+                            <HyperlinkButton
+                                Content="Abrir configurações de voz do Windows"
+                                Click="Alterar_Voz"/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <!-- Row 1: Progress Bar -->
+        <ProgressBar
+            x:Name="ProgressBarStart"
+            Grid.Row="1"
+            IsIndeterminate="{x:Bind ViewModel.IsProgressActive, Mode=OneWay}"
+            ShowPaused="False"
+            ShowError="{x:Bind ViewModel.HasError, Mode=OneWay}"/>
+
+        <!-- Row 2: Info Bar (shows errors) -->
+        <InfoBar
+            Grid.Row="2"
+            x:Name="ErrorInfoBar"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Severity="Error"
+            Title="Erro na síntese de voz"
+            Message="Ocorreu um erro durante a conversão. Verifique se há um dispositivo de áudio conectado."
+            Margin="0,4,0,4"/>
+
+        <!-- Row 3: Rich Text Input Area with word highlighting -->
+        <RichEditBox
+            Grid.Row="3"
+            x:Name="Text_Start"
+            Margin="0,4,0,0"
+            IsSpellCheckEnabled="True"
+            IsTextPredictionEnabled="True"
+            TextChanged="Text_Start_TextChanged"
+            PlaceholderText="Digite para iniciar a TTS-Live"
+            ScrollViewer.VerticalScrollMode="Enabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"/>
     </Grid>
 </Page>

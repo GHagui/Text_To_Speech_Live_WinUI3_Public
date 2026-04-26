@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 
 using TTS_Live_UI.Activation;
@@ -66,6 +67,12 @@ public partial class App : Application
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<ISpeechService, SpeechService>();
+            services.AddSingleton<IHistoryService, HistoryService>();
+
+            // UI Services
+            services.AddSingleton<IClipboardWatchService, ClipboardWatchService>();
+            services.AddSingleton<IGlobalHotkeyService, GlobalHotkeyService>();
 
             // Views and ViewModels
             services.AddTransient<IntroduçãoViewModel>();
@@ -76,6 +83,8 @@ public partial class App : Application
             services.AddTransient<EditorDetailPage>();
             services.AddTransient<EditorViewModel>();
             services.AddTransient<EditorPage>();
+            services.AddTransient<HistoryViewModel>();
+            services.AddTransient<HistoryPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();
@@ -83,6 +92,13 @@ public partial class App : Application
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
+
+            // Logging
+            services.AddLogging(builder =>
+            {
+                builder.AddDebug();
+                builder.SetMinimumLevel(LogLevel.Information);
+            });
         }).
         Build();
 
@@ -91,8 +107,12 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+        // Log the exception and prevent crash when possible
+        var logger = Host.Services.GetService<ILoggerFactory>()?.CreateLogger<App>();
+        logger?.LogCritical(e.Exception, "Unhandled exception occurred: {Message}", e.Message);
+
+        // Mark as handled to prevent app crash for non-fatal exceptions
+        e.Handled = true;
     }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)

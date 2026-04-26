@@ -1,33 +1,35 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using CommunityToolkit.Mvvm.ComponentModel;
 using TTS_Live_UI.Contracts.ViewModels;
-using TTS_Live_UI.Core.Contracts.Services;
-using TTS_Live_UI.Core.Models;
 
 namespace TTS_Live_UI.ViewModels;
 
 public class EditorDetailViewModel : ObservableRecipient, INavigationAware
 {
-    private readonly ISampleDataService _sampleDataService;
-    private SampleOrder? _item;
+    private string? _shortcutLabel;
+    private string? _shortcutText;
 
-    public SampleOrder? Item
+    public string? ShortcutLabel
     {
-        get => _item;
-        set => SetProperty(ref _item, value);
+        get => _shortcutLabel;
+        set => SetProperty(ref _shortcutLabel, value);
     }
 
-    public EditorDetailViewModel(ISampleDataService sampleDataService)
+    public string? ShortcutText
     {
-        _sampleDataService = sampleDataService;
+        get => _shortcutText;
+        set => SetProperty(ref _shortcutText, value);
     }
 
-    public async void OnNavigatedTo(object parameter)
+    public EditorDetailViewModel()
     {
-        if (parameter is long orderID)
+    }
+
+    public void OnNavigatedTo(object parameter)
+    {
+        if (parameter is TextShortcut shortcut)
         {
-            var data = await _sampleDataService.GetContentGridDataAsync();
-            Item = data.First(i => i.OrderID == orderID);
+            ShortcutLabel = shortcut.Label;
+            ShortcutText = shortcut.Text;
         }
     }
 
